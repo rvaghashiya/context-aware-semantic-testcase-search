@@ -1,0 +1,23 @@
+model:
+  name: "t5"
+  model_name: "t5-small"
+  embedding_dim: 512
+  max_seq_length: 512
+
+clustering:
+  algorithm: "kmeans"
+  n_clusters: 10
+
+visualization:
+  method: "tsne"
+  perplexity: 30
+  n_iter: 1000
+  random_state: 42
+
+evaluation:
+  metrics: ["silhouette", "davies_bouldin", "calinski_harabasz"]
+  search_metrics: ["precision_k", "mrr", "ndcg"]
+
+data:
+  max_samples: 10000
+  subset_for_demo: true

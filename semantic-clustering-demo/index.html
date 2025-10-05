@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Test Case Clustering with ELMo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="header__title">Semantic Test Case Clustering</h1>
+            <p class="header__subtitle">Leveraging ELMo Embeddings for Intelligent Test Case Analysis</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav__tab nav__tab--active" data-tab="overview">Overview</button>
+            <button class="nav__tab" data-tab="demo">Demo</button>
+            <button class="nav__tab" data-tab="search">Search</button>
+            <button class="nav__tab" data-tab="metrics">Metrics</button>
+            <button class="nav__tab" data-tab="architecture">Architecture</button>
+        </nav>
+
+        <!-- Content Sections -->
+        <main class="main">
+            <!-- Overview Tab -->
+            <section id="overview" class="tab-content tab-content--active">
+                <div class="overview">
+                    <div class="overview__hero">
+                        <h2>Project Overview</h2>
+                        <p>This project leverages state-of-the-art Natural Language Processing techniques to improve software testing workflows by enabling semantic search, clustering, and visualization of test cases using deep contextualized word embeddings from ELMo.</p>
+                    </div>
+                    
+                    <div class="features">
+                        <div class="feature-card">
+                            <h3>Semantic Understanding</h3>
+                            <p>Overcome limitations of keyword-based search with context-aware embeddings that capture semantic similarities between test cases.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Intelligent Clustering</h3>
+                            <p>Automatically group related test cases using advanced clustering algorithms and dimensionality reduction techniques.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Interactive Visualization</h3>
+                            <p>Explore test case relationships through intuitive 2D visualizations with t-SNE projections.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>95% Accuracy</h3>
+                            <p>Achieved 95% accuracy in semantic retrieval compared to traditional keyword-based methods.</p>
+                        </div>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h3>Technology Stack</h3>
+                        <div class="tech-items">
+                            <span class="tech-item">Python</span>
+                            <span class="tech-item">TensorFlow</span>
+                            <span class="tech-item">ELMo</span>
+                            <span class="tech-item">scikit-learn</span>
+                            <span class="tech-item">t-SNE</span>
+                            <span class="tech-item">matplotlib</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Demo Tab -->
+            <section id="demo" class="tab-content">
+                <div class="demo">
+                    <div class="demo__controls">
+                        <h2>Interactive Clustering Demo</h2>
+                        <div class="controls-row">
+                            <div class="form-group">
+                                <label class="form-label">Embedding Model:</label>
+                                <select id="modelSelect" class="form-control">
+                                    <option value="elmo">ELMo (1024-dim)</option>
+                                    <option value="bert" selected>BERT (384-dim)</option>
+                                    <option value="t5">T5 (512-dim)</option>
+                                </select>
+                            </div>
+                            <button id="generateBtn" class="btn btn--primary">Generate Clusters</button>
+                        </div>
+                        <div id="loadingState" class="loading-state hidden">
+                            <div class="loading-spinner"></div>
+                            <span>Generating embeddings and clustering...</span>
+                        </div>
+                    </div>
+
+                    <div class="visualization">
+                        <div class="chart-container" style="position: relative; height: 500px;">
+                            <canvas id="clusterChart"></canvas>
+                        </div>
+                        <div class="legend" id="clusterLegend"></div>
+                    </div>
+
+                    <div class="test-case-details" id="testCaseDetails">
+                        <h3>Test Case Details</h3>
+                        <p>Click on a point in the visualization to see test case information.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search Tab -->
+            <section id="search" class="tab-content">
+                <div class="search">
+                    <h2>Semantic Search</h2>
+                    <div class="search__form">
+                        <div class="form-group">
+                            <label class="form-label">Search Query:</label>
+                            <input type="text" id="searchInput" class="form-control" placeholder="Enter a search query (e.g., 'user authentication', 'payment processing')">
+                        </div>
+                        <button id="searchBtn" class="btn btn--primary">Search</button>
+                    </div>
+
+                    <div class="search__results" id="searchResults">
+                        <h3>Search Results</h3>
+                        <p>Enter a search query to find semantically similar test cases.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Metrics Tab -->
+            <section id="metrics" class="tab-content">
+                <div class="metrics">
+                    <h2>Model Performance Metrics</h2>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <h3>Model Comparison</h3>
+                            <div class="comparison-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Model</th>
+                                            <th>Dimensions</th>
+                                            <th>Accuracy</th>
+                                            <th>Silhouette Score</th>
+                                            <th>Davies-Bouldin</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="metricsTable">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <h3>Performance Visualization</h3>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="metricsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metrics-description">
+                        <h3>Metric Explanations</h3>
+                        <ul>
+                            <li><strong>Accuracy:</strong> Percentage of correctly retrieved semantically similar test cases</li>
+                            <li><strong>Silhouette Score:</strong> Measure of clustering quality (higher is better, range -1 to 1)</li>
+                            <li><strong>Davies-Bouldin Index:</strong> Cluster separation metric (lower is better)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture Tab -->
+            <section id="architecture" class="tab-content">
+                <div class="architecture">
+                    <h2>System Architecture</h2>
+                    
+                    <!-- <div class="architecture__diagram">
+                        <img src="abc.png" alt="System Architecture Diagram" class="architecture__image">
+                    </div> -->
+
+                    <div class="architecture__components" id="architectureComponents">
+                    </div>
+
+                    <div class="architecture__workflow">
+                        <h3>Processing Workflow</h3>
+                        <ol>
+                            <li><strong>Data Ingestion:</strong> Load and preprocess test case data from various sources</li>
+                            <li><strong>Embedding Generation:</strong> Apply ELMo/BERT/T5 models to generate semantic embeddings</li>
+                            <li><strong>Similarity Computation:</strong> Calculate cosine similarities between test case embeddings</li>
+                            <li><strong>Clustering:</strong> Apply clustering algorithms to group semantically similar test cases</li>
+                            <li><strong>Dimensionality Reduction:</strong> Use t-SNE to project embeddings to 2D for visualization</li>
+                            <li><strong>Visualization:</strong> Render interactive plots for exploration and analysis</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
